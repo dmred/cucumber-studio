@@ -2,7 +2,6 @@ const test = require('ava');
 
 const CucumberStudio = require('../lib');
 
-// eslint-disable-next-line import/no-unresolved
 const { token, client, uid } = process.env;
 
 const cucumberStudio = new CucumberStudio({
@@ -125,6 +124,28 @@ test('updateFolder', async t => {
   });
 
   t.is(updatedFolder.attributes.description, description, 'message');
+});
+
+test('getChildrenFolder', async t => {
+  t.plan(4);
+
+  const nestedFolderName = 'nestedFolderCreation';
+
+  const folder = await cucumberStudio.createFolder(projectId, {
+    name: nestedFolderName,
+    'parent-id': folderId,
+  });
+
+  t.is(folder.type, 'folders', 'message');
+  t.is(folder.attributes.name, nestedFolderName, 'message');
+
+  const childrenFolders = await cucumberStudio.getChildrenFolders(
+    projectId,
+    folderId,
+  );
+
+  t.true(Array.isArray(childrenFolders.data), 'message');
+  t.is(childrenFolders.data[0].attributes.name, nestedFolderName, 'message');
 });
 
 test('deleteFolder', async t => {
