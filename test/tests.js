@@ -2,12 +2,12 @@ const test = require('ava');
 
 const CucumberStudio = require('../lib');
 
-const { token, client, uid } = process.env;
+const { TOKEN, CLIENT, UID } = process.env;
 
 const cucumberStudio = new CucumberStudio({
-  token,
-  client,
-  uid,
+  TOKEN,
+  CLIENT,
+  UID,
 });
 
 let projectId;

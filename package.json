@@ -4,7 +4,17 @@
   "description": "Cucumber Studio API Connector for NodeJS",
   "main": "lib/index.js",
   "scripts": {
-    "test": "node ./node_modules/ava/cli.js --serial"
+    "test": "ava --serial",
+    "test:watch": "ava --serial --watch",
+    "cover": "nyc report",
+    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text",
+      "html"
+    ]
   },
   "repository": "https://github.com/dmred/cucumber-studio",
   "author": "Dima Red <dmredchenko@gmail.com>",
@@ -20,6 +30,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.17.0",
+    "nyc": "^14.1.1",
     "prettier": "^1.19.1"
   },
   "dependencies": {
