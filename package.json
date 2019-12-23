@@ -1,10 +1,10 @@
 {
   "name": "cucumber-studio",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Cucumber Studio API Connector for NodeJS",
   "main": "lib/index.js",
   "scripts": {
-    "test": "ava --serial",
+    "test": "nyc ava --serial",
     "test:watch": "ava --serial --watch",
     "cover": "nyc report",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"

@@ -13,6 +13,7 @@ const cucumberStudio = new CucumberStudio({
 let projectId;
 let folderId;
 let scenarioId;
+let childFolderId;
 
 test('getAllProjects', async t => {
   t.plan(1);
@@ -33,27 +34,34 @@ test('getProjectById', async t => {
   t.is(projectById.type, 'projects', 'message'); // anxious
 });
 
-test('getScenarios', async t => {
+test('getProjectBackupById', async t => {
   t.plan(1);
 
-  const scenarios = await cucumberStudio.getScenarios(projectId);
+  const projectBackup = await cucumberStudio.getProjectBackupById(projectId);
 
-  t.true(Array.isArray(scenarios), 'message');
+  t.true('data' in projectBackup, 'message');
 });
 
 test('getFolders', async t => {
-  const folders = await cucumberStudio.getScenarios(projectId);
+  t.plan(2);
+
+  const folders = await cucumberStudio.getFolders(projectId);
 
   t.true(Array.isArray(folders), 'message');
+  t.is(folders[0].type, 'folders', 'message');
 });
 
 test('createFolder', async t => {
   t.plan(2);
 
   const testFolderName = 'testFolderCreation';
-
-  const folder = await cucumberStudio.createFolder(projectId, {
+  const folderAttributes = {
     name: testFolderName,
+  };
+
+  const folder = await cucumberStudio.createFolder({
+    projectId,
+    folderAttributes,
   });
 
   t.is(folder.type, 'folders', 'message');
@@ -67,9 +75,12 @@ test('createScenario', async t => {
 
   const testScenarioName = 'testScenarioName';
 
-  const scenario = await cucumberStudio.createScenario(projectId, {
-    name: testScenarioName,
-    'folder-id': folderId,
+  const scenario = await cucumberStudio.createScenario({
+    projectId,
+    scenarioAttributes: {
+      name: testScenarioName,
+      'folder-id': folderId,
+    },
   });
 
   t.is(scenario.type, 'scenarios', 'message');
@@ -79,13 +90,22 @@ test('createScenario', async t => {
   scenarioId = scenario.id;
 });
 
+test('getScenarios', async t => {
+  t.plan(2);
+
+  const scenarios = await cucumberStudio.getScenarios(projectId);
+
+  t.true(Array.isArray(scenarios), 'message');
+  t.is(scenarios[0].type, 'scenarios', 'message');
+});
+
 test('getFolderScenarios', async t => {
   t.plan(3);
 
-  const folderScenarios = await cucumberStudio.getFolderScenarios(
+  const folderScenarios = await cucumberStudio.getFolderScenarios({
     projectId,
     folderId,
-  );
+  });
 
   t.is(folderScenarios.length, 1, 'message');
   t.true(Array.isArray(folderScenarios), 'message');
@@ -97,11 +117,11 @@ test('updateScenario', async t => {
 
   const description = 'Description to update';
 
-  const updatedScenario = await cucumberStudio.updateScenario(
+  const updatedScenario = await cucumberStudio.updateScenario({
     projectId,
     scenarioId,
-    { description },
-  );
+    newAttributes: { description },
+  });
 
   t.is(updatedScenario.attributes.description, description, 'message');
 });
@@ -109,7 +129,10 @@ test('updateScenario', async t => {
 test('deleteScenario', async t => {
   t.plan(1);
 
-  const deleted = await cucumberStudio.deleteScenario(projectId, scenarioId);
+  const deleted = await cucumberStudio.deleteScenario({
+    projectId,
+    scenarioId,
+  });
 
   t.is(Object.keys(deleted).length, 0, 'message');
 });
@@ -119,8 +142,12 @@ test('updateFolder', async t => {
 
   const description = 'Description to update';
 
-  const updatedFolder = await cucumberStudio.updateFolder(projectId, folderId, {
-    description,
+  const updatedFolder = await cucumberStudio.updateFolder({
+    projectId,
+    folderId,
+    newAttributes: {
+      description,
+    },
   });
 
   t.is(updatedFolder.attributes.description, description, 'message');
@@ -131,27 +158,90 @@ test('getChildrenFolder', async t => {
 
   const nestedFolderName = 'nestedFolderCreation';
 
-  const folder = await cucumberStudio.createFolder(projectId, {
-    name: nestedFolderName,
-    'parent-id': folderId,
+  const folder = await cucumberStudio.createFolder({
+    projectId,
+    folderAttributes: {
+      name: nestedFolderName,
+      'parent-id': folderId,
+    },
   });
+
+  childFolderId = folder.id;
 
   t.is(folder.type, 'folders', 'message');
   t.is(folder.attributes.name, nestedFolderName, 'message');
 
-  const childrenFolders = await cucumberStudio.getChildrenFolders(
+  const childrenFolders = await cucumberStudio.getChildrenFolders({
     projectId,
     folderId,
-  );
+  });
 
   t.true(Array.isArray(childrenFolders.data), 'message');
   t.is(childrenFolders.data[0].attributes.name, nestedFolderName, 'message');
 });
 
+test('clearAllScenarios', async t => {
+  const arrayToCreate = [];
+
+  const MIN = 2;
+  const MAX = 5;
+  const length = Math.floor(MIN + Math.random() * (MAX + 1 - MIN));
+
+  t.plan(3);
+
+  for (let i = 0; i < length; i += 1) {
+    arrayToCreate.push(
+      cucumberStudio.createScenario({
+        projectId,
+        scenarioAttributes: {
+          name: `scenarioToDelete_${i}`,
+          'folder-id': childFolderId,
+        },
+      }),
+    );
+  }
+
+  await Promise.all(arrayToCreate);
+
+  const cleared = await cucumberStudio.clearAllScenarios({
+    projectId,
+    folderId: childFolderId,
+  });
+
+  t.is(Object.keys(cleared).length, 0, 'message');
+
+  const folderScenarios = await cucumberStudio.getFolderScenarios({
+    projectId,
+    folderId: childFolderId,
+  });
+
+  t.is(folderScenarios.length, 0, 'message');
+  t.true(Array.isArray(folderScenarios), 'message');
+});
+
+test('deleteChildrenFolder', async t => {
+  t.plan(3);
+
+  const deletedChildren = await cucumberStudio.deleteChildrenFolders({
+    projectId,
+    folderId,
+  });
+
+  t.is(Object.keys(deletedChildren).length, 0, 'message');
+
+  const childrenFolders = await cucumberStudio.getChildrenFolders({
+    projectId,
+    folderId,
+  });
+
+  t.true(Array.isArray(childrenFolders.data), 'message');
+  t.is(childrenFolders.data.length, 0, 'message');
+});
+
 test('deleteFolder', async t => {
   t.plan(1);
 
-  const deleted = await cucumberStudio.deleteFolder(projectId, folderId);
+  const deleted = await cucumberStudio.deleteFolder({ projectId, folderId });
 
   t.is(Object.keys(deleted).length, 0, 'message');
 });
