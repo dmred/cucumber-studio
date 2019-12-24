@@ -1,6 +1,6 @@
 {
   "name": "cucumber-studio",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Cucumber Studio API Connector for NodeJS",
   "main": "lib/index.js",
   "scripts": {
