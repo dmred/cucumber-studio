@@ -113,14 +113,14 @@ Creates an instance of CucumberStudio.
 
 #### Parameters
 
--   `credentials` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-    -   `credentials.TOKEN` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-    -   `credentials.CLIENT` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-    -   `credentials.UID` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-    -   `credentials.projectId` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
--   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** 
-    -   `opts.requestOptions` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
-    -   `opts.proxy` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
+-   `credentials` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** object with params
+    -   `credentials.TOKEN` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Cucumber Studio API token
+    -   `credentials.CLIENT` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Cucumber Studio identifier
+    -   `credentials.UID` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** User email of CucumberStudio Account
+    -   `credentials.projectId` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** project ID to work with
+-   `opts` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** object with params
+    -   `opts.requestOptions` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** some request options for request-promise-native
+    -   `opts.proxy` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** proxy settings
 
 #### Examples
 
@@ -262,9 +262,9 @@ Delete scenatio by its ID.
 
 ##### Parameters
 
--   `$0` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** { projectId = this.projectId, scenarioId }
-    -   `$0.projectId` **([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))**  (optional, default `this.projectId`)
-    -   `$0.scenarioId` **([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))** 
+-   `$0` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** object with params
+    -   `$0.projectId` **([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))** project ID (optional, default `this.projectId`)
+    -   `$0.scenarioId` **([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))** scenario ID
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** empty object
 
