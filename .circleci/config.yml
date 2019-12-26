@@ -2,7 +2,9 @@
  jobs:
    build:
      docker:
-       - image: circleci/node:10.16.3
+       - image: circleci/node
      steps:
        - checkout
        - run: echo "A first hello"
+       - run: yarn
+       - run: yarn test
