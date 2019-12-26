@@ -4,7 +4,7 @@
      docker:
        - image: circleci/node:12.14.0
      steps:
-       - run: node -e "console.log(require('request'))"
+       - run: yarn add request
        - run: ls -la
-       - run: npm install
-       - run: npm run test
+       - run: yarn install
+       - run: yarn test
