@@ -13,6 +13,9 @@
        - run:
           name: install-npm-wee
           command: npm install
+       - run:
+           name: install request
+           command: npm install request
        - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
