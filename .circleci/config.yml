@@ -5,6 +5,6 @@
        - image: circleci/node
      steps:
        - checkout
-       - run: echo "A first hello"
-       - run: yarn install
-       - run: yarn test
+       - run: ls -la
+       - run: npm install
+       - run: npm run test
