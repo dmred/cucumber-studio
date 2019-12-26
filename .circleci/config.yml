@@ -4,8 +4,19 @@
      docker:
        - image: circleci/node:12.14.0
      steps:
-       - run: yarn add request
-       - run: cat package.json
-       - run: ls -la
-       - run: yarn install
-       - run: yarn test
+       - checkout
+       - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+       - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+       - run:
+          name: install-npm-wee
+          command: npm install
+       - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+       - run: # run tests
+          name: test
+          command: npm test
