@@ -25,7 +25,7 @@
           command: npm test
        - run: 
           name: report-coverage
-          command: npm report-coverage t $CODECOV_TOKEN
+          command: npm run report-coverage t $CODECOV_TOKEN
        - store_artifacts: # special step to save test results as as artifact
           # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
           path: test-results.xml
