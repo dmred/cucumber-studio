@@ -14,8 +14,8 @@
           name: install-npm-wee
           command: npm install
        - run:
-           name: install request
-           command: npm install request
+           name: install-request-codecov
+           command: npm install request codecov
        - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
