@@ -13,8 +13,7 @@
   "nyc": {
     "reporter": [
       "lcov",
-      "text",
-      "html"
+      "clover"
     ]
   },
   "repository": "https://github.com/dmred/cucumber-studio",
