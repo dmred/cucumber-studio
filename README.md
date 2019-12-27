@@ -2,7 +2,7 @@
 
 ![](https://avatars2.githubusercontent.com/u/320565?s=400&v=4)
 
-[![codecov](https://codecov.io/gh/dmred/cucumber-studio/branch/master/graph/badge.svg)](https://codecov.io/gh/dmred/cucumber-studio) [![npm version](https://badge.fury.io/js/cucumber-studio.svg)](https://badge.fury.io/js/cucumber-studio) ![npm dev dependency version](https://img.shields.io/npm/dependency-version/cucumber-studio/dev/eslint-config-airbnb) ![npm dev dependency version](https://img.shields.io/npm/dependency-version/cucumber-studio/dev/eslint-config-prettier)
+[![codecov](https://codecov.io/gh/dmred/cucumber-studio/branch/master/graph/badge.svg)](https://codecov.io/gh/dmred/cucumber-studio) [![CircleCI](https://circleci.com/gh/dmred/cucumber-studio/tree/master.svg?style=svg)](https://circleci.com/gh/dmred/cucumber-studio/tree/master) [![npm version](https://badge.fury.io/js/cucumber-studio.svg)](https://badge.fury.io/js/cucumber-studio) ![npm dev dependency version](https://img.shields.io/npm/dependency-version/cucumber-studio/dev/eslint-config-airbnb) ![npm dev dependency version](https://img.shields.io/npm/dependency-version/cucumber-studio/dev/eslint-config-prettier)
 
 [TOCM]
 

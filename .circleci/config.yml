@@ -34,4 +34,3 @@
           prefix: coverage
        - store_test_results:
           path: .nyc_output
-          prefix: nyc_output
