@@ -3,7 +3,7 @@
    build:
      branches:
        only:
-         - feature/xml-test-reporter
+         - master
      docker:
        - image: circleci/node:12.14.0
      steps:
