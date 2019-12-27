@@ -4,7 +4,7 @@
   "description": "Cucumber Studio API Connector for NodeJS",
   "main": "lib/index.js",
   "scripts": {
-    "test": "nyc ava --serial",
+    "test": "nyc ava --serial && mv coverage/clover.xml coverage/results.xml",
     "test:watch": "ava --serial --watch",
     "cover": "nyc report",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
