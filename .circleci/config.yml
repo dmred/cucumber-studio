@@ -3,7 +3,7 @@
    build:
      branches:
        only:
-         - master
+         - feature/xml-test-reporter
      docker:
        - image: circleci/node:12.14.0
      steps:
@@ -36,4 +36,4 @@
           path: coverage
           prefix: coverage
        - store_test_results:
-          path: .nyc_output
+          path: coverage
