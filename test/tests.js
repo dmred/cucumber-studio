@@ -245,3 +245,15 @@ test('deleteFolder', async t => {
 
   t.is(Object.keys(deleted).length, 0, 'message');
 });
+
+test('setProjectId', t => {
+  t.plan(1);
+
+  const newProjectId = 1234;
+
+  cucumberStudio.setProjectId(newProjectId);
+
+  t.is(cucumberStudio.projectId, newProjectId, 'message');
+
+  cucumberStudio.setProjectId(projectId); // revert back to the condition before test
+});
