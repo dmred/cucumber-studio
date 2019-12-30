@@ -1,11 +1,18 @@
  version: 2.0
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node
+
+
  jobs:
    build:
      branches:
        only:
-         - master
+         - feature/autopublish-to-npm
      docker:
-       - image: circleci/node:12.14.0
+       - image: circleci/node
      steps:
        - checkout
        - run:
@@ -23,12 +30,13 @@
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
-       - run:
-          name: test
-          command: npm test
-       - run: 
-          name: report-coverage
-          command: npm run report-coverage t $CODECOV_TOKEN
-       - store_artifacts:
-          path: coverage
-          prefix: coverage
+      test:
+        - run:
+           name: test
+           command: npm test
+        - run: 
+           name: report-coverage
+           command: npm run report-coverage t $CODECOV_TOKEN
+        - store_artifacts:
+           path: coverage
+           prefix: coverage
