@@ -24,13 +24,13 @@
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
-      test:
-        - run:
-           name: test
-           command: npm test
-        - run: 
-           name: report-coverage
-           command: npm run report-coverage t $CODECOV_TOKEN
-        - store_artifacts:
-           path: coverage
-           prefix: coverage
+   test:
+     - run:
+        name: test
+        command: npm test
+     - run: 
+        name: report-coverage
+        command: npm run report-coverage t $CODECOV_TOKEN
+     - store_artifacts:
+        path: coverage
+        prefix: coverage
